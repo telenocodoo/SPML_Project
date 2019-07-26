@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    	<!-- sale inherited form view -->
+    	<record id="view_order_form_inherited" model="ir.ui.view">
+    		<field name="name">sale form view inherited</field>
+    		<field name="model">sale.order</field>
+    		<field name="inherit_id" ref="sale.view_order_form"/>
+    		<field name="arch" type="xml">
+    			<xpath expr="//field[@name='payment_term_id']" position="after">
+    				<field name="delivery_status" string="Delivery Status" attrs="{'invisible': [('delivery_count', '&lt;', 1)]}"  />
+    			</xpath>
+    		</field>
+    	</record>
+
+    	<!-- sale inherited tree view -->
+    	<record id="view_order_tree_inherited" model="ir.ui.view">
+    		<field name="name">sale tree view inherited</field>
+    		<field name="model">sale.order</field>
+    		<field name="inherit_id" ref="sale.view_order_tree"/>
+    		<field name="arch" type="xml">
+    			<xpath expr="//field[@name='state']" position="after">
+    				<field name="delivery_status" string="Delivery Status"/>
+    			</xpath>
+    		</field>
+    	</record>
+
+        <!-- sale inherited search view -->
+        <record id="view_sales_order_filter_by_delivery_status" model="ir.ui.view">
+            <field name="name">sale search view inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+                    <separator/>
+                    <field name="delivery_status"/>
+                    <group expand="0">
+                        <filter string="Delivery Status" name="delivery_status_group_by" context="{'group_by':'delivery_status'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

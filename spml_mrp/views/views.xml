@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+	    <record id="mrp_bom_form_view_bom_cost" model="ir.ui.view">
+	        <field name="name">mrp.bom.form</field>
+	        <field name="model">mrp.bom</field>
+	        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+	        <field name="arch" type="xml">
+                <field name="type">form</field>
+ <xpath expr="//field[@name='company_id']" position="after">
+
+    <field name="final_total_cost_after_waste"/>
+
+     <field name="current_sell_price"/>
+
+
+
+
+</xpath>
+		  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='bom_line_ids']/tree[1]/field[@name='product_qty']" position="after">
+    <field name="product_cost"/>
+      <field name="actual_cost"/>
+       <field name="Total"/>
+
+  </xpath>
+	        </field>
+	    </record>
+
+
+
+      <record id="mrp_bom_form_view_bom_extra_cost" model="ir.ui.view">
+	        <field name="name">mrp.bom.form</field>
+	        <field name="model">mrp.bom</field>
+	        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+
+	        <field name="arch" type="xml">
+              <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+    <page name="Bom_extra" string="Extra Component">
+
+
+       <field name="bom_extra_line_ids" widget="one2many_list" context="{'default_parent_product_tmpl_id': product_tmpl_id}">
+                                <tree string="Extra" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="actual_cost"/>
+                                    <field name="total"  sum="Extra total"/>
+
+
+                                </tree>
+
+
+                            </field>
+
+    </page>
+
+
+                  <page name="Bom_cost" string="Extra Cost">
+
+<!--  comp_total = fields.Float(string="Component Total" ,compute="_calc_comp_total")-->
+<!--     bom_extra_line_ids = fields.One2many('mrp.bom.extra', 'bom_id', 'BoM Extra' )-->
+<!--     Extra_total = fields.Float(string="Extra Total",compute="_calc_comp_total" )-->
+<!--     final_total_cost=fields.Float(string="Final  Total Cost", compute="_calc_comp_total")-->
+<!--     divid=fields.Float(string="Quntity divid",digits=(16,3),required=True)-->
+<!--     comp_per_divid =fields.Float(string="Per cost",digits=(16,3) ,compute="_calc_per_divid")-->
+<!--     fill_volume =fields.Float(string="Fill Volume",required=True)-->
+<!--     comp_total_per_fill=fields.Float(string="Total Volume cost",digits=(16,3) ,compute="_calc_volume_cost")-->
+
+
+                    <sheet>
+                        <group col="6"  >
+
+                             <field name="comp_total"/>
+                            <field name="divid"/>
+                        <field name="comp_per_divid"/>
+                           </group>
+
+
+                         <group col="6" >
+                            <field name="comp_per_divid"/>
+                            <field name="fill_volume"/>
+                            <field name="comp_total_per_fill"/>
+
+                       </group>
+                            <group col="6" >
+                            <field name="final_total_cost"/>
+                            <field name="percent_age_waste"/>
+                            <field name="cost_of_waste"/>
+
+                       </group>
+<group>
+    <field name="Veriable_Overhead"/>
+    <field name="Direct_Labour"/>
+
+</group>
+                        <group col="6">
+                            <field name="final_total_cost_after_waste"/>
+                  <field name="markup_percentage"/>
+                   <field name="may_sell_by"/>
+                         </group>
+                    </sheet>
+
+
+    </page>
+  </xpath>
+	        </field>
+	    </record>
+
+
+
+
+
+    </data>
+</odoo>

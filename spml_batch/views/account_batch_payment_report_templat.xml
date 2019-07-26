@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+<template id="print_batch_payment_spml" inherit_id="account_batch_payment.print_batch_payment">
+
+ <xpath expr="/t/t/t/div/table/thead/tr" position="replace">
+    <tr style="background-color:lightgray;">
+<!--                     <th class="text-left">Customer</th>-->
+<!--                        <th class="text-left">Date</th>-->
+<!--                        <th class="text-left">Memo</th>-->
+<!--                        <th class="text-right">Amount</th>-->
+    </tr>
+</xpath>
+
+ <xpath expr="/t/t/t/div/table/tfoot/tr" position="replace">
+    <tr >
+<!--                     <th class="text-left">Customer</th>-->
+<!--                        <th class="text-left">Date</th>-->
+<!--                        <th class="text-left">Memo</th>-->
+<!--                        <th class="text-right">Amount</th>-->
+
+
+
+    <td></td><td></td> <th style="background-color:lightgray;">Total Amount</th>
+    <th class="text-right"><t t-esc="page['total_amount']" t-options="{'widget': 'monetary', 'display_currency': page['currency']}"/></th>
+
+    </tr>
+</xpath>
+
+    <xpath expr="/t/t/t/div/div " position="replace">
+     <div class="row batch_details">
+       <div class="col-6">Date<t t-esc="page['date']"/></div>
+    <div class="col-6 text-center"><t t-esc="page['journal_name']"/> : <t t-esc="page['batch_name']" /></div>
+    <diV class="col-6 text-center"> Total Amount : <t t-esc="page['total_amount']" t-options="{'widget': 'monetary', 'display_currency': page['currency']}"/></diV>
+
+    </div>
+</xpath>
+
+     <xpath expr="/t/t/t/div/table/tr" position="replace">
+
+<!--          <div t-foreach="page['payments']" t-as="payment" >-->
+<!--          <th class="text-left" style="background-color:lightgray;" >Customer :</th>  <td><t t-esc="payment.partner_id.name"/></td>-->
+<!--         <th class="text-left" style="background-color:lightgray;" >Date :</th> <td><t t-esc="payment.payment_date" t-options='{"widget": "date"}'/></td>-->
+<!--         <th class="text-left" style="background-color:lightgray;" >Memo :</th><td><t t-esc="payment.communication"/></td>-->
+<!--           <th class="text-left" style="background-color:lightgray;" >Amount :</th><td><t t-esc="payment.amount" t-options="{'widget': 'monetary', 'display_currency': payment.currency_id}"/></td>-->
+
+          <table class="table table-bordered table-sm" min-width="80%">
+                    <thead><tr style="background-color:#dfdfdf;">
+                        <th class="text-left">Journal Name</th>
+                        <th class="text-left">Label</th>
+                        <th class="text-left">Debit</th>
+                        <th class="text-right">credit</th>
+                    </tr>
+           </thead>
+     <tr >
+         <t t-foreach="page['Invoices']" t-as="Journals">
+<!--             <t t-foreach="InVoices" t-as="Journals">-->
+             <tr>
+       <td class="text-left"><t t-esc="Journals['name']"/></td>
+        <td class="text-left"><t t-esc="Journals['label']" /></td>
+         <td class="text-left"><t t-esc="Journals['debit']" t-options="{'widget': 'monetary', 'display_currency': page['currency']}" /></td>
+           <td class="text-right"><t t-esc="Journals['credit']" t-options="{'widget': 'monetary', 'display_currency':page['currency']}"/></td>
+             </tr>
+         </t>
+<!--         </t>-->
+     </tr>
+          </table>
+<!--          </div>-->
+</xpath>
+
+<!--    -->
+<!--    <t t-call="web.basic_layout">-->
+<!--        <t t-foreach="docs" t-as="o">-->
+<!--            <div t-foreach="pages(o)" t-as="page" class="page page_batch_payment">-->
+<!--                <div class="row batch_details">-->
+<!--                    <div class="col-6"><t t-esc="page['date']"/></div>-->
+<!--                    <div class="col-6 text-right"><t t-esc="page['journal_name']"/> : <t t-esc="page['batch_name']"/></div>-->
+<!--                </div>-->
+<!--                <table class="table table-bordered table-sm">-->
+<!--                    <thead><tr>-->
+<!--                        <th class="text-left">Customer</th>-->
+<!--                        <th class="text-left">Date</th>-->
+<!--                        <th class="text-left">Memo</th>-->
+<!--                        <th class="text-right">Amount</th>-->
+<!--                    </tr></thead>-->
+<!--                    -->
+<!--                    <tr t-foreach="page['payments']" t-as="payment">-->
+<!--                        <td class="text-left"><t t-esc="payment.partner_id.name"/></td>-->
+<!--                        <td class="text-left"><t t-esc="payment.payment_date" t-options='{"widget": "date"}'/></td>-->
+<!--                        <td class="text-left"><t t-esc="payment.communication"/></td>-->
+<!--                        <td class="text-right"><t t-esc="payment.amount" t-options="{'widget': 'monetary', 'display_currency': payment.currency_id}"/></td>-->
+<!--                    </tr>-->
+<!--                  -->
+<!--                  -->
+<!--                    <tfoot><tr>-->
+<!--                        <td></td><td></td><td></td>-->
+<!--                        <td class="text-right"><t t-esc="page['total_amount']" t-options="{'widget': 'monetary', 'display_currency': page['currency']}"/></td>-->
+<!--                    </tr></tfoot>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </t>-->
+<!--    -->
+
+
+
+</template>
+</odoo>

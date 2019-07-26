@@ -1,0 +1,82 @@
+<odoo>
+  <data>
+
+
+     <record model="ir.ui.view" id="partner_instructor_form_view">
+            <field name="name">customer.code</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+              
+               <field name="name" position="after" >
+                 <field name="code"  placeholder="Customer Code"/>
+                   </field>
+                
+<!--                 <field name="lastname" position="before" >
+                 <field name="code"  placeholder="Customer Code1"/>
+                   </field> -->
+          
+            </field> 
+        </record>
+
+
+
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="autocustomer.list">
+      <field name="name">autocustomer list</field>
+      <field name="model">autocustomer.autocustomer</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="autocustomer.action_window">
+      <field name="name">autocustomer window</field>
+      <field name="res_model">autocustomer.autocustomer</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="autocustomer.action_server">
+      <field name="name">autocustomer server</field>
+      <field name="model_id" ref="model_autocustomer_autocustomer"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="autocustomer" id="autocustomer.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="autocustomer.menu_1" parent="autocustomer.menu_root"/>
+    <menuitem name="Menu 2" id="autocustomer.menu_2" parent="autocustomer.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="autocustomer.menu_1_list" parent="autocustomer.menu_1"
+              action="autocustomer.action_window"/>
+    <menuitem name="Server to list" id="autocustomer" parent="autocustomer.menu_2"
+              action="autocustomer.action_server"/>
+    -->
+  </data>
+</odoo>

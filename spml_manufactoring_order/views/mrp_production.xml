@@ -1,0 +1,91 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_production_form_view_inherit">
+            <field name="name">mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">confirmed,progress,test,done</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done']" position="before">
+                    <button name="button_check_testing"
+                            attrs="{'invisible': [('state', 'not in', 'progress')]}"
+                            string="Check for testing"
+                            type="object"
+                            class="oe_highlight"
+                    />
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][1]" position="attributes">
+                    <attribute name="groups">spml_manufactoring_order.group_manufacturing_management</attribute>
+                </xpath>
+                <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
+                    <attribute name="groups">spml_manufactoring_order.group_manufacturing_management</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="quality_check_view_form_inherit">
+            <field name="name">quality.check.form</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="mrp_production_id" readonly="True" />
+                    <field name="analyzed_by_id" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                </xpath>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="no_of_sterility" />
+                    <field name="no_of_colonies" />
+                    <field name="is_pass" invisible="1"/>
+                </xpath>
+                <notebook>
+                    <page string="Quality Tests">
+                        <field name="test_line_ids">
+                            <tree editable="bottom">
+                                <field name="question_id" required="1"/>
+                                <field name="question_type" required="1"/>
+                                <field name="quantitative_value"
+                                       attrs="{'readonly':[('question_type', '=', 'qualitative')]}"/>
+                                <field name="qualitative_id"
+                                        attrs="{'readonly':[('question_type', '=', 'quantitative')]}"/>
+                                <field name="q_from" force_save="True"
+                                        attrs="{'readonly':[('question_type', '=', 'qualitative')]}"/>
+                                <field name="q_to" force_save="True"
+                                        attrs="{'readonly':[('question_type', '=', 'qualitative')]}"/>
+                                <field name="specification"
+                                        attrs="{'readonly':[('question_type', '=', 'quantitative')]}"/>
+                                <field name="is_success" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="quality_check_view_tree_inherit">
+            <field name="name">quality.check.form</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="mrp_production_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="quality_check_view_search_inherit">
+            <field name="name">quality.check.form</field>
+            <field name="model">quality.check</field>
+            <field name="inherit_id" ref="quality_control.quality_check_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="mrp_production_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+
+
+        <record id="group_mrp_management" model="ir.rule">
+            <field name="name">Only Responsible can modify cost extra </field>
+            <field name="model_id" ref="mrp_bom"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="domain_force">
+                ['|', ('responsible_id','=',False),
+                      ('responsible_id','=',user.id)]
+            </field>
+        </record>
+
+    </data>
+</odoo>

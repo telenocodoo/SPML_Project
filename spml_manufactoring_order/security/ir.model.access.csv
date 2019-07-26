@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quality_check_test,access_quality_check_test,model_quality_check_test,,1,1,1,1
+access_qualitative_value,access_qualitative_value,model_qualitative_value,,1,1,1,1
+access_question_type,access_question_type,model_question_type,,1,1,1,1
+access_quality_test_lines,access_quality_test_lines,model_quality_test_lines,,1,1,1,1

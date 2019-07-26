@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="spml_batch.list">
+      <field name="name">spml_batch list</field>
+      <field name="model">spml_batch.spml_batch</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="spml_batch.action_window">
+      <field name="name">spml_batch window</field>
+      <field name="res_model">spml_batch.spml_batch</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="spml_batch.action_server">
+      <field name="name">spml_batch server</field>
+      <field name="model_id" ref="model_spml_batch_spml_batch"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="spml_batch" id="spml_batch.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="spml_batch.menu_1" parent="spml_batch.menu_root"/>
+    <menuitem name="Menu 2" id="spml_batch.menu_2" parent="spml_batch.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="spml_batch.menu_1_list" parent="spml_batch.menu_1"
+              action="spml_batch.action_window"/>
+    <menuitem name="Server to list" id="spml_batch" parent="spml_batch.menu_2"
+              action="spml_batch.action_server"/>
+    -->
+  </data>
+</odoo>
