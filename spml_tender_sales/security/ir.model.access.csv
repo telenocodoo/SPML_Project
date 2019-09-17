@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tender_sales,access_tender_sales,model_tender_sales,,1,1,1,1
+access_tender_sales_lines,access_tender_sales_lines,model_tender_sales_lines,,1,1,1,1
+access_tender_delivered_quantity,access_tender_delivered_quantity,model_tender_delivered_quantity,,1,1,1,1
+access_tender_delivered_quantity_lines,access_tender_delivered_quantity_lines,model_tender_delivered_quantity_lines,,1,1,1,1

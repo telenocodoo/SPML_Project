@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+
+        <record id="res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="is_approved" widget="radio" attrs="{'invisible':[('supplier','=',False)]}"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Vendor Attachment" attrs="{'invisible':[('supplier','=',False)]}">
+                        <field name="partner_attach_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="attach_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="res_partner_kanban_inherit" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="is_approved" widget="radio" />
+                </xpath>
+                <xpath expr="//templates//t//div//div//ul//li[3]" position="after">
+                        <field name="is_approved" widget="radio" />
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">[('is_approved','in',['required','temporary_approved']),
+                        ('supplier','=',True)]</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

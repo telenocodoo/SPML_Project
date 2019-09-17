@@ -1,0 +1,154 @@
+<odoo>
+    <data>
+
+        <record id="sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="tender_sales_action" string="Create Tender"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible':[('is_tender','=',True)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_tender" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="period" />
+                    <field name="tender_id" readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="tender_sales_form" model="ir.ui.view">
+            <field name="name">tender.sales</field>
+            <field name="model">tender.sales</field>
+            <field name="arch" type="xml">
+                <form>
+
+                    <sheet>
+                        <group>
+                            <group>
+                              <field name="sale_id" readonly="1"/>
+                              <button name="transfer_quantity_to_product" string="Transfer Product" type="object" />
+                            </group>
+                            <group>
+                              <field name="invoice_id" readonly="1"/>
+                              <field name="period"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Tender Lines">
+                                <field name="tender_ids">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="product_id" readonly="True"/>
+                                        <field name="quantity" readonly="True"/>
+                                        <field name="cost" readonly="True"/>
+                                        <field name="tax_ids" widget="many2many_tags" readonly="True"/>
+                                        <field name="ordered_quantity" readonly="True"/>
+                                        <field name="delivered_quantity" readonly="True"/>
+                                        <field name="balance" readonly="True"/>
+                                        <field name="total" readonly="True"/>
+                                        <field name="state"/>
+                                        <field name="is_move"/>
+                                        <field name="number" attrs="{'required':[('is_move','=',True)]}"/>
+                                        <field name="note" readonly="True"/>
+                                        <button name="transfer_product_quantity"
+                                                string="Delivery QTY"
+                                                type="object" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tender_sales_tree2" model="ir.ui.view">
+            <field name="name">tender.sales</field>
+            <field name="model">tender.sales</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_id"/>
+                    <field name="sale_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tender_sales_action" model="ir.actions.act_window">
+            <field name="name">Tender Sales</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tender.sales</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="tender_sales_wizard_form" model="ir.ui.view">
+            <field name="name">tender.sales.wizard</field>
+            <field name="model">tender.sales.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="tender_id" invisible="1"/>
+                        <group>
+                            <h5>First Product</h5>
+                            <field name="product1_id" string="Product"/>
+                            <field name="quantity1" string="Balance"/>
+                            <field name="cost1" string="Cost"/>
+                            <field name="total1" string="Total"/>
+                            <field name="note1" string="Note"/>
+                            <field name="line_id1" invisible="1"/>
+                        </group>
+                        <group>
+                            <h5>Second Product</h5>
+                            <field name="product2_id" string="Product"/>
+                            <field name="quantity2" string="Balance"/>
+                            <field name="cost2" string="Cost"/>
+                            <field name="total2" string="Total"/>
+                            <field name="note2" string="Note"/>
+                            <field name="line_id2" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tender Line" invisible="1">
+                            <field name="tender_ids">
+                                <tree editable="bottom">
+                                     <field name="product1_id"/>
+                                     <field name="quantity1"/>
+                                     <field name="cost1"/>
+                                     <field name="total1"/>
+                                     <field name="number"/>
+                                     <field name="line_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+                <footer>
+                    <button name="compute_product_quantity" string="Compute" type="object" />
+                    <button name="move_product_quantity" string="confirm" type="object" />
+                    <button string="cancel" special="cancel" />
+                </footer>
+            </field>
+        </record>
+
+
+        <menuitem id="tender_sales_root" name="Tender Sales"/>
+        <menuitem id="tender_sales_child" parent="tender_sales_root" name="Tender Sales" sequence="2"/>
+        <menuitem id="tender_sales_menu"
+                  name="Tender Sales"
+                  action="tender_sales_action"
+                  parent="tender_sales_child"
+                  sequence="2"
+                  />
+    </data>
+</odoo>

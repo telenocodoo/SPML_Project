@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_partner_property_form_dos_payment" model="ir.ui.view">
+        <field name="name">res.partner.account.form.dos</field>
+        <field name="model">res.partner</field>
+	    <field name="inherit_id" ref="account.view_partner_property_form"/>
+	    <field name="arch" type="xml">							
+		    <xpath expr="//field[@name='property_account_receivable_id']" position="after">
+	        	<field name="property_account_advance_receivable_id" attrs="{'invisible': [('customer','=',False)], 'required': [('customer','=',True)]}"/>
+	        </xpath>		
+		    <xpath expr="//field[@name='property_account_payable_id']" position="after">
+	        	<field name="property_account_advance_payable_id" attrs="{'invisible': [('supplier','=',False)], 'required': [('supplier','=',True)]}"/>
+	        	<field name="property_journal_installment_id"/>
+	        	<field name="property_account_employee_receivable_id"/>
+	        	<field name="property_account_employee_advance_id"/>
+	        	<!-- <field name="property_journal_installment_id" attrs="{'invisible': [('employee','=',False)]}"/>
+	        	<field name="property_account_employee_receivable_id" attrs="{'invisible': [('employee','=',False)]}"/>
+	        	<field name="property_account_employee_advance_id" attrs="{'invisible': [('employee','=',False)]}"/> -->
+	        </xpath>					
+		    <xpath expr="//field[@name='property_account_payable_id']" position="attributes">
+	        	<attribute name="attrs">{'invisible': [('supplier','=',False)], 'required': [('supplier','=',True)]}</attribute>
+	        </xpath>
+	    </field>
+	</record>
+	
+	
+</odoo>

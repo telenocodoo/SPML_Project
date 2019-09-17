@@ -9,6 +9,19 @@ from itertools import groupby, filterfalse
 
 
 #
+# class ProductTemplate(models.Model):
+#     _inherit = 'product.template'
+#digits=(16,4)
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    standard_price = fields.Float(
+        'Cost', compute='_compute_standard_price',
+        inverse='_set_standard_price', search='_search_standard_price',
+        digits= (16,4) , groups="base.group_user",
+        help = "Cost used for stock valuation in standard price and as a first price to set in average/FIFO.")
+
 class MrpBom(models.Model):
 
      _inherit =  'mrp.bom'
@@ -76,7 +89,34 @@ class MrpBom(models.Model):
 
      @api.multi
      def _calc_comp_total_waste(self):
+         product_cost_id = self.env['product.product'].search([('product_tmpl_id', '=',self.product_tmpl_id.id)],limit=1)
+
+         # print(self.product_tmpl_id.name)
          self.final_total_cost_after_waste = self.final_total_cost + self.cost_of_waste+self.Veriable_Overhead+self.Direct_Labour
+         product_cost_id.standard_price=self.final_total_cost_after_waste
+         # if product_cost_id :
+         #    product_cost_id.standard_price=self.final_total_cost_after_waste
+         #    print( "hi... cost ",product_cost_id.standard_price)
+         #    p = self.env['product.product'].browse(product_cost_id.id)
+         #    # self.env['post.coder'].write(code_check, {'street': self.buyer_address_1})
+         #
+         #        # print(product_cost_id.standard_price)
+         #    p.write({'standard_price': product_cost_id.standard_price})
+         #    print(p)
+
+     @api.model
+     def create(self, vals):
+         res = super(MrpBom, self).create(vals)
+         res.write({'code': res.code})
+         return res
+
+     @api.multi
+     def write(self, vals):
+         res = super(MrpBom, self).write(vals)
+         for bom in self:
+
+             bom.product_tmpl_id.standard_price = self.final_total_cost_after_waste
+         return res
 
      @api.multi
      def _calc_comp_total(self):
